@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            background: linear-gradient(to right, #67b26f, #4ca2cd);
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 30px;
+            font-weight: 700;
+            color: #00796b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px; transform: translateY(-5px);
+            transform: translateY(-10px);
+            filter: none;
+            fill: #004d40;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #00796b;
+            color: #ffffff;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .container {
+            max-width: fit-content;
+            display: flex;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        h1 {
+            color: #00796b;
+            margin-bottom: 25px;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: #004d40;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #00796b;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            width: 400px;
+        }
+
+        input[type="file"]:hover {
+            border-color: #004d40;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 14px 25px;
+            background-color: #00796b;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover, a:hover {
+            background-color: #004d40;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .image-preview {
+            display: block;
+            margin: 20px auto;
+            height: 200px;
+            width: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview:hover {
+            transform: scale(1.05);
+        }
+
+        .result-section {
+            margin-top: 60px;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-section h2 {
+            color: #00796b;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .result-section h3 {
+            color: #004d40;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .result-section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .navigation a, .navigation form {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .dark-green {
+            margin-top: 50px;
+            filter: brightness(90%) contrast(1000%) hue-rotate(-10deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img class="dark-green" src="https://cdn-icons-png.flaticon.com/512/8336/8336244.png" alt="user" height="50px" width="50px" style="margin-top: 10px;">
+            Phishing Detection 
+        </div>
+        <div class="nav-buttons">
+        
+        <h3 style="margin-top: 25px;">{{ request.user.username }}</h3>
+        </div>
+    </header>
+    <div class="container">
+        <div>
+        <h2>Upload an URL</h2>
+        {% if error %}
+        <div style="color: red; font-size: small;">
+            {{ error }}
+        </div>
+        {% endif %}
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: grid;"> 
+            <input type="text" id="uploadText" name="uploadText" placeholder="Enter your text here" style="height: 30px; width: 300px; border: #004d40;">
+            <button type="submit">Upload</button>
+        </div>
+        </form>
+        {% if not error %}
+        <h6>Ensure that enter a correct URL</h6>
+        {% endif %}
+        </div>
+        {% if obj %}
+        <div style="margin-left: 20px;">
+            <div class="result-section">
+              <h2>You have entered</h2>
+              <h3>{{ obj }}</h3>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
